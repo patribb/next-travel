@@ -1,9 +1,17 @@
-import styles from './page.module.css'
+import TravelLogForm from '@/components/TravelLogForm';
+import { TravelLogs } from '@/models/TravelLogs'
 
-export default function Home() {
+export default async function Home() {
+  const logs = await TravelLogs.find().toArray()
+  
   return (
-    <main className={styles.main}>
-     <h1>Hello World</h1>
+    <main>
+      <h1>Hello World</h1>
+      <h2>There are {logs.length} in the Database.</h2>
+      {logs.map((log) => (
+        <div key={log._id.toString()}>{log.title}</div>
+      ))}
+      <TravelLogForm />
     </main>
-  )
+  );
 }
